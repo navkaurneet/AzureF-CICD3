@@ -1,26 +1,25 @@
 pipeline {
     agent any
-/*
-    environment {
-        // Azure credentials
+/*    environment {
+        // Define any necessary environment variables here
         AZURE_CLIENT_ID = credentials('azure-client-id')
         AZURE_CLIENT_SECRET = credentials('azure-client-secret')
         AZURE_TENANT_ID = credentials('azure-tenant-id')
-        RESOURCE_GROUP = 'your-resource-group-name'  // Replace with your Azure resource group name
-        FUNCTION_APP_NAME = 'your-function-app-name'  // Replace with your Azure Function App name
+        RESOURCE_GROUP = 'your-resource-group-name'
+        FUNCTION_APP_NAME = 'your-function-app-name'
     }
 */
     stages {
         stage('Checkout') {
             steps {
-                script {
-                    echo 'Checking out the repository...'
-                    // Clone public repository without credentials
-                    git url: 'https://github.com/navkaurneet/AzureF-CICD3.git'
-                }
+                // Cloning the GitHub repository with credentials
+                git(
+                    branch: 'main',  // Change to the branch you want to use (e.g., 'main')
+                    url: 'https://github.com/navkaurneet/AzureF-CICD3.git',
+                    credentialsId: 'GitHub1'
+                )
             }
         }
-
         stage('Build') {
             steps {
                 script {
@@ -45,7 +44,7 @@ pipeline {
                     echo 'Deploying to Azure...'
                     sh """
                         az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
-                        zip -r function.zip . 
+                        zip -r function.zip .  // Package the application
                         az functionapp deployment source config-zip --resource-group $RESOURCE_GROUP --name $FUNCTION_APP_NAME --src function.zip
                     """
                 }
