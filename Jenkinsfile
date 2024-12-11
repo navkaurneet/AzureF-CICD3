@@ -3,7 +3,7 @@ pipeline {
 /*    environment {
         AZURE_CLIENT_ID = credentials('azure-client-id')  // Assuming you have these credentials in Jenkins
         AZURE_CLIENT_SECRET = credentials('azure-client-secret')
-        AZURE_TENANT_ID = credentials('azure-tenant-id')
+        AZURE_TENANT_ID = credentials('4ddd393a-e98a-4404-841f-c4becdd925a5')
         RESOURCE_GROUP = 'nav_cicd'
         FUNCTION_APP_NAME = 'nav-python-function-app'
     }
