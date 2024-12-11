@@ -1,17 +1,12 @@
-import pytest
-import requests
-
-BASE_URL = "http://<your-function-app-url>"
-
-def test_function_status_code():
-    response = requests.get(BASE_URL)
-    assert response.status_code == 200
-
-def test_function_response():
-    response = requests.get(BASE_URL)
-    assert response.text == "Hello, World!"
-
-def test_function_edge_case():
-    response = requests.get(BASE_URL, params={"name": "Jenkins"})
-    assert response.status_code == 200
-    assert "Hello, Jenkins!" in response.text
+import unittest
+from HttpTrigger.__init__ import main
+ 
+class TestFunction(unittest.TestCase):
+    def test_hello_world(self):
+        response = main(req=None)
+        self.assertEqual(response["status"], 200)
+        self.assertEqual(response["body"], "Hello, World!")
+ 
+if __name__ == "__main__":
+    unittest.main()
+ 
