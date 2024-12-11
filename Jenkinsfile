@@ -1,7 +1,7 @@
 pipeline {
     agent any
 /*    environment {
-        AZURE_CLIENT_ID = credentials('azure-client-id')  // Assuming you have these credentials in Jenkins
+        AZURE_CLIENT_ID = credentials('azure-client-id')
         AZURE_CLIENT_SECRET = credentials('azure-client-secret')
         AZURE_TENANT_ID = credentials('4ddd393a-e98a-4404-841f-c4becdd925a5')
         RESOURCE_GROUP = 'nav_cicd'
@@ -24,7 +24,7 @@ pipeline {
                 script {
                     echo 'Installing dependencies...'
                     // Navigate to the 'function' directory and install dependencies
-                    bat 'pip install -r function/requirements.txt'  // Use bat for Windows to install Python dependencies
+                    bat 'pip install -r function/requirements.txt' 
                 }
             }
         }
@@ -33,7 +33,7 @@ pipeline {
                 script {
                     echo 'Running tests...'
                     // Run tests from the 'tests' directory
-                    bat 'pytest tests/test_function.py'  // Use bat for Windows to run pytest tests
+                    bat 'python -m unittest discover -s tests'
                 }
             }
         }
