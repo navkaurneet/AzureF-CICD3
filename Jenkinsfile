@@ -33,7 +33,7 @@ pipeline {
                 script {
                     echo 'Running tests...'
                     // Run tests from the 'tests' directory
-                    bat 'python -m unittest discover -s tests'
+                    bat 'pytest tests/test_function.py'
                 }
             }
         }
