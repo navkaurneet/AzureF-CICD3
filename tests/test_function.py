@@ -1,5 +1,5 @@
 import unittest
-from HttpTrigger.__init__ import main
+from function.__init__ import main
  
 class TestFunction(unittest.TestCase):
     def test_hello_world(self):
