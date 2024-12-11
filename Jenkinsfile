@@ -1,14 +1,14 @@
 pipeline {
     agent any
 
-    environment {
+/*    environment {
         AZURE_CLIENT_ID = credentials('azure-client-id')
         AZURE_CLIENT_SECRET = credentials('azure-client-secret')
         AZURE_TENANT_ID = credentials('azure-tenant-id')
         RESOURCE_GROUP = 'your-resource-group-name'
         FUNCTION_APP_NAME = 'your-function-app-name'
     }
-
+*/
     stages {
         stage('Build') {
             steps {
