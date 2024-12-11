@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     echo 'Installing dependencies...'
-                    sh 'pip install -r requirements.txt'
+                    sh 'pip install -r function/requirements.txt'
                 }
             }
         }
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     echo 'Running tests...'
-                    sh 'pytest tests/'  // Assuming you have a tests directory and pytest set up
+                    sh 'pytest tests/test_function.py/'  
                 }
             }
         }
