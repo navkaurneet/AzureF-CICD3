@@ -4,8 +4,8 @@ pipeline {
         AZURE_CLIENT_ID = credentials('azure-client-id')  // Assuming you have these credentials in Jenkins
         AZURE_CLIENT_SECRET = credentials('azure-client-secret')
         AZURE_TENANT_ID = credentials('azure-tenant-id')
-        RESOURCE_GROUP = 'your-resource-group-name'
-        FUNCTION_APP_NAME = 'your-function-app-name'
+        RESOURCE_GROUP = 'nav_cicd'
+        FUNCTION_APP_NAME = 'nav-python-function-app'
     }
 */
     stages {
