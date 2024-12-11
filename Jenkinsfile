@@ -1,8 +1,7 @@
 pipeline {
     agent any
 /*    environment {
-        // Define any necessary environment variables here
-        AZURE_CLIENT_ID = credentials('azure-client-id')
+        AZURE_CLIENT_ID = credentials('azure-client-id')  // Assuming you have these credentials in Jenkins
         AZURE_CLIENT_SECRET = credentials('azure-client-secret')
         AZURE_TENANT_ID = credentials('azure-tenant-id')
         RESOURCE_GROUP = 'your-resource-group-name'
@@ -14,7 +13,7 @@ pipeline {
             steps {
                 // Cloning the GitHub repository with credentials
                 git(
-                    branch: 'main',  // Change to the branch you want to use (e.g., 'main')
+                    branch: 'main',
                     url: 'https://github.com/navkaurneet/AzureF-CICD3.git',
                     credentialsId: 'GitHub1'
                 )
@@ -24,28 +23,29 @@ pipeline {
             steps {
                 script {
                     echo 'Installing dependencies...'
-                    sh 'pip install -r function/requirements.txt'
+                    // Navigate to the 'function' directory and install dependencies
+                    bat 'pip install -r function/requirements.txt'  // Use bat for Windows to install Python dependencies
                 }
             }
         }
-
         stage('Test') {
             steps {
                 script {
                     echo 'Running tests...'
-                    sh 'pytest tests/test_function.py/'  
+                    // Run tests from the 'tests' directory
+                    bat 'pytest tests/test_function.py'  // Use bat for Windows to run pytest tests
                 }
             }
         }
-
         stage('Deploy') {
             steps {
                 script {
                     echo 'Deploying to Azure...'
-                    sh """
-                        az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
-                        zip -r function.zip .  // Package the application
-                        az functionapp deployment source config-zip --resource-group $RESOURCE_GROUP --name $FUNCTION_APP_NAME --src function.zip
+                    // Azure CLI command to deploy the function app
+                    bat """
+                        az login --service-principal -u %AZURE_CLIENT_ID% -p %AZURE_CLIENT_SECRET% --tenant %AZURE_TENANT_ID%
+                        zip -r function.zip function/  // Zip the function app folder
+                        az functionapp deployment source config-zip --resource-group %RESOURCE_GROUP% --name %FUNCTION_APP_NAME% --src function.zip
                     """
                 }
             }
